@@ -12,21 +12,26 @@ using LibreHardwareMonitor.Hardware;
 using Microsoft.VisualBasic.Devices;
 using System.Collections;
 using MaterialSkin.Controls;
-using Microsoft.Win32;
+using System.ComponentModel;
+using System.Net;
+
 namespace NuClean
 {
     
 
     public class Function
     {
-        private LibreHardwareMonitor.Hardware.Computer computer;
+        //private LibreHardwareMonitor.Hardware.Computer computer;
         private const string PersonalizationKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private const string AppsUseLightThemeValueName = "AppsUseLightTheme";
         private const string appName = "NuClean"; // Replace with your app's name
+        private const string LatestVersionUrl = "https://your-server.com/latest-version.txt";
+        private const string UpdateUrl = "https://your-server.com/update.zip";
 
-        public static async void ScheduledTasks()
+        //Scheduled tasks
+        public static async void ScheduledTasks(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBar5);
+            await Form1.AnimateProgressBarAsync(progressBar);
             try
             {
                 Process.Start("control", "schedtasks");
@@ -36,12 +41,13 @@ namespace NuClean
             {
                 MessageBox.Show("Failed to open Scheduled Tasks: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        public static async void Startup()
+        }       
+        //Startup function
+        public static async void Startup(MaterialCheckbox checkBox)
         {
-            Properties.Settings.Default.RunOnStartup = Form1.materialCheckbox1.Checked;
+            Properties.Settings.Default.RunOnStartup = checkBox.Checked;
             Properties.Settings.Default.Save();
-            if (Form1.materialCheckbox1.Checked)
+            if (checkBox.Checked)
             {
                 // Add the app to Windows startup
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -54,9 +60,10 @@ namespace NuClean
                 key.DeleteValue(appName, false);
             }
         }
-        public static async void Uninstaller()
+        //Open Uninstaller
+        public static async void Uninstaller(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBar3);
+            await Form1.AnimateProgressBarAsync(progressBar);
             try
             {
 
@@ -67,10 +74,11 @@ namespace NuClean
             {
                 MessageBox.Show("Failed to open uninstall tab: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        public static async void BoostRam()
+        }   
+        //BoostRam
+        public static async void BoostRam(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBar8);
+            await Form1.AnimateProgressBarAsync(progressBar);
             try
             {
                 // Close unnecessary processes to free up RAM
@@ -89,10 +97,11 @@ namespace NuClean
                 MessageBox.Show("Failed to Boost Ram: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-        }
-        public static async void GodMode()
+        }     
+        //Open GodMode Folder
+        public static async void GodMode(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBarOther3);
+            await Form1.AnimateProgressBarAsync(progressBar);
 
             try
             {
@@ -103,10 +112,11 @@ namespace NuClean
             {
                 MessageBox.Show("Failed to open God Mode: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        public static async void DiskCleanup()
+        }      
+        //Open DiskCleanup
+        public static async void DiskCleanup(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBar4);
+            await Form1.AnimateProgressBarAsync(progressBar);
             try
             {
                 Process.Start("cleanmgr.exe");
@@ -116,10 +126,11 @@ namespace NuClean
             {
                 MessageBox.Show("Failed to initiate Disk Cleanup: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        public static async void UAC()
+        }     
+        //Open UAC Settings
+        public static async void UAC(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBarOther2);
+            await Form1.AnimateProgressBarAsync(progressBar);
             try
             {
                 Process.Start("control", "userpasswords");
@@ -130,6 +141,7 @@ namespace NuClean
                 MessageBox.Show("Failed to open UAC settings: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Clean Temp Files
         public static async Task CleanTemporaryFiles()
         {
             await Task.Run(() =>
@@ -172,6 +184,7 @@ namespace NuClean
             });
 
         }
+        //Clean Browser Cache
         public static void CleanBrowserCache()
         {
             try
@@ -193,6 +206,7 @@ namespace NuClean
                 MessageBox.Show("Failed to clean browser cache: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Clean Chrome Cache
         public static void CleanChromeCache()
         {
             try
@@ -208,6 +222,7 @@ namespace NuClean
                 MessageBox.Show("Failed to clean Chrome cache: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Clean FireFox Cache
         public static void CleanFirefoxCache()
         {
             try
@@ -230,6 +245,7 @@ namespace NuClean
                 MessageBox.Show("Failed to clean Firefox cache: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Clean IE Cache
         public static void CleanInternetExplorerCache()
         {
             try
@@ -245,6 +261,7 @@ namespace NuClean
                 MessageBox.Show("Failed to clean Internet Explorer cache: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Clean System Logs
         public static async Task CleanSystemLogs()
         {
             await Task.Run(() =>
@@ -278,6 +295,7 @@ namespace NuClean
                 }
             });
         }
+        //Clean Cache Dir
         public static void CleanCacheDirectory(string cachePath)
         {
             if (Directory.Exists(cachePath))
@@ -298,7 +316,7 @@ namespace NuClean
                 }
             }
         }
-
+        //Load SysInfo for Homepage
         public static async Task<string> LoadSystemInfo2(LibreHardwareMonitor.Hardware.Computer computer)
         {
             string info = await Task.Run(async () =>
@@ -378,8 +396,7 @@ namespace NuClean
 
             return info;
         }
-
-
+        //Format sizes for SysInfo Function
         public static string GetFormattedSize(long bytes)
         {
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -392,6 +409,7 @@ namespace NuClean
             }
             return $"{size:0.##} {sizes[order]}";
         }
+        //Get Cpu info for SysInfo
         public static string GetGPUInformation()
         {
             string gpuInfo = "Unknown";
@@ -403,11 +421,13 @@ namespace NuClean
             }
             return gpuInfo;
         }
+        //Get DiskSpace for SysInfo
         public static long GetAvailableDiskSpace()
         {
             DriveInfo drive = new DriveInfo(Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 1));
             return drive.AvailableFreeSpace;
         }
+        //Enable Dark Theme
         public static void DarkThemeOn()
         {
             try
@@ -421,6 +441,7 @@ namespace NuClean
             {
             }
         }
+        //Disable Dark Theme
         public static void DarkThemeOff()
         {
             try
@@ -435,11 +456,12 @@ namespace NuClean
             {
             }
         }
-        public static async void OpenCmdWithIpConfigAll()
+        //Display Network Settings
+        public static async void OpenCmdWithIpConfigAll(MaterialProgressBar progressBar)
         {
             try
             {
-                await Form1.AnimateProgressBarAsync(Form1.materialProgressBarOther1);
+                await Form1.AnimateProgressBarAsync(progressBar);
                 ProcessStartInfo processStartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
@@ -461,6 +483,7 @@ namespace NuClean
                 Console.WriteLine("Error opening Command Prompt: " + ex.Message);
             }
         }
+        //Function for Cleaning Temp Files
         public static void RunGarbageCollection()
         {
             try
@@ -475,11 +498,12 @@ namespace NuClean
             {
             }
         }
-        public static async void DisableSuperfetch()
+        //Disable Superfetch Service
+        public static async void DisableSuperfetch(MaterialProgressBar progressBar)
         {
             try
             {
-                await Form1.AnimateProgressBarAsync(Form1.materialProgressBar2);
+                await Form1.AnimateProgressBarAsync(progressBar);
 
                 using (Process process = new Process())
                 {
@@ -498,25 +522,8 @@ namespace NuClean
             catch (Exception ex)
             {
             }
-        }
-        public static void BoostRamForGaming_Click()
-        {
-            try
-            {
-                // Close unnecessary processes to free up RAM
-                CloseUnnecessaryProcesses();
-
-                // Clear system cache and release memory
-                ClearSystemCache();
-
-                // Run garbage collection to release unused memory
-                RunGarbageCollection();
-
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        } 
+        //Close Apps
         public static void CloseUnnecessaryProcesses()
         {
             try
@@ -541,6 +548,7 @@ namespace NuClean
             {
             }
         }
+        //Clean Sys Cache
         public static void ClearSystemCache()
         {
             try
@@ -553,6 +561,7 @@ namespace NuClean
             {
             }
         }
+        //Function for network info settings
         public static string RunSystemCommand(string command, string arguments)
         {
             try
@@ -587,5 +596,125 @@ namespace NuClean
                 return null;
             }
         }
+        //Donate function with the link
+        public static void DonateFunc()
+        {
+            string url = "https://www.paypal.com/donate/?hosted_button_id=SP6LQVVRJ6VC8";
+
+            try
+            {
+                // Create a ProcessStartInfo object
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true // Set UseShellExecute to true to use the default shell
+                };
+
+                // Open the link using the default web browser
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                MessageBox.Show("Error opening link: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //Check for updates HERE WE ASSIGN THE CURR VERSION
+        public static async void CheckUpdates()
+        {
+            string currentVersion = "1.0.0.0"; // Replace this with your actual current version
+            string latestVersion = await GetLatestVersionFromServer();
+
+            if (Function.IsUpdateAvailable(currentVersion, latestVersion))
+            {
+                DialogResult result = MessageBox.Show("An update is available. Do you want to download it?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Perform the update process, e.g., download the latest version from your server.
+                    // You can use WebClient or any other library to download the update.
+                    // After downloading, install the update and restart the application if necessary.
+                }
+            }
+            else
+            {
+                MessageBox.Show("Your app is up to date.", "No Updates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        //Get latest version of app
+        private static async Task<string> GetLatestVersionFromServer()
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    string latestVersion = await httpClient.GetStringAsync(LatestVersionUrl);
+                    return latestVersion.Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while fetching the latest version.
+                MessageBox.Show("Error fetching the latest version: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return string.Empty;
+            }
+        }
+        //Compare versions
+        public static bool IsUpdateAvailable(string currentVersion, string latestVersion)
+        {
+            // Implement a version comparison logic here.
+            // For example, you can split the version strings and compare their parts.
+            // You may also use System.Version class for more advanced version comparison.
+            // This is a simple example comparing the strings directly.
+            return string.Compare(latestVersion, currentVersion) > 0;
+        }
+        //Download Update and install
+        public static void DownloadAndInstallUpdate()
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                // Register the event handlers for download progress and completion.
+                webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+                webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+
+                // Download the update file to a temporary location.
+                string tempFilePath = Path.GetTempFileName() + ".zip";
+
+                try
+                {
+                    webClient.DownloadFileAsync(new Uri(UpdateUrl), tempFilePath);
+                }
+                catch (Exception ex)
+                {
+                    // Handle any errors that occur during the download.
+                    MessageBox.Show("Error downloading the update: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public static void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+
+            // Update your progress bar here based on e.ProgressPercentage.
+            MaterialProgressBar progressbar = new MaterialProgressBar();
+            progressbar.Value = e.ProgressPercentage;
+            
+        }
+        public static void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show("Error downloading the update: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Perform the installation of the downloaded update file.
+            // You can use any update mechanism suitable for your app.
+            // For example, you can extract the downloaded ZIP file and run an installer, or replace the app files with the updated ones.
+
+            // After installing the update, you may want to prompt the user to restart the application.
+            MessageBox.Show("Update installed successfully. Please restart the application.", "Update Installed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
     }
 }

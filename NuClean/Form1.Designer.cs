@@ -33,12 +33,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             home = new TabPage();
+            materialMultiLineTextBox22 = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
+            materialLabel17 = new MaterialSkin.Controls.MaterialLabel();
             materialButton2 = new MaterialSkin.Controls.MaterialButton();
             materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
             materialButton1 = new MaterialSkin.Controls.MaterialButton();
             materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
-            richTextBox1 = new RichTextBox();
             clean = new TabPage();
             materialProgressBar8 = new MaterialSkin.Controls.MaterialProgressBar();
             materialFloatingActionButton9 = new MaterialSkin.Controls.MaterialFloatingActionButton();
@@ -94,6 +95,9 @@
             materialTextBox22 = new MaterialSkin.Controls.MaterialTextBox2();
             materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
             settings = new TabPage();
+            textBox1 = new TextBox();
+            materialButton5 = new MaterialSkin.Controls.MaterialButton();
+            materialButton4 = new MaterialSkin.Controls.MaterialButton();
             comboBoxLanguage = new MaterialSkin.Controls.MaterialComboBox();
             materialCheckbox2 = new MaterialSkin.Controls.MaterialCheckbox();
             materialCheckbox1 = new MaterialSkin.Controls.MaterialCheckbox();
@@ -137,12 +141,13 @@
             // 
             // home
             // 
+            home.Controls.Add(materialMultiLineTextBox22);
+            home.Controls.Add(materialLabel17);
             home.Controls.Add(materialButton2);
             home.Controls.Add(materialLabel10);
             home.Controls.Add(materialLabel9);
             home.Controls.Add(materialButton1);
             home.Controls.Add(materialLabel8);
-            home.Controls.Add(richTextBox1);
             home.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
             home.ImageKey = "icons8-home-32.png";
             home.Location = new Point(4, 39);
@@ -153,6 +158,43 @@
             home.Text = "Home";
             home.UseVisualStyleBackColor = true;
             // 
+            // materialMultiLineTextBox22
+            // 
+            materialMultiLineTextBox22.AnimateReadOnly = false;
+            materialMultiLineTextBox22.BackgroundImageLayout = ImageLayout.None;
+            materialMultiLineTextBox22.CharacterCasing = CharacterCasing.Normal;
+            materialMultiLineTextBox22.Depth = 0;
+            materialMultiLineTextBox22.HideSelection = true;
+            materialMultiLineTextBox22.Location = new Point(461, 191);
+            materialMultiLineTextBox22.MaxLength = 32767;
+            materialMultiLineTextBox22.MouseState = MaterialSkin.MouseState.OUT;
+            materialMultiLineTextBox22.Name = "materialMultiLineTextBox22";
+            materialMultiLineTextBox22.PasswordChar = '\0';
+            materialMultiLineTextBox22.ReadOnly = true;
+            materialMultiLineTextBox22.ScrollBars = ScrollBars.None;
+            materialMultiLineTextBox22.SelectedText = "";
+            materialMultiLineTextBox22.SelectionLength = 0;
+            materialMultiLineTextBox22.SelectionStart = 0;
+            materialMultiLineTextBox22.ShortcutsEnabled = true;
+            materialMultiLineTextBox22.Size = new Size(429, 303);
+            materialMultiLineTextBox22.TabIndex = 7;
+            materialMultiLineTextBox22.TabStop = false;
+            materialMultiLineTextBox22.TextAlign = HorizontalAlignment.Center;
+            materialMultiLineTextBox22.UseSystemPasswordChar = false;
+            // 
+            // materialLabel17
+            // 
+            materialLabel17.AutoSize = true;
+            materialLabel17.Depth = 0;
+            materialLabel17.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel17.Location = new Point(29, 106);
+            materialLabel17.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel17.Name = "materialLabel17";
+            materialLabel17.Size = new Size(517, 19);
+            materialLabel17.TabIndex = 6;
+            materialLabel17.Text = "*Consider running NuCleaner with Administration Rights to work properly.";
+            materialLabel17.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // materialButton2
             // 
             materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -160,7 +202,7 @@
             materialButton2.Depth = 0;
             materialButton2.HighEmphasis = true;
             materialButton2.Icon = null;
-            materialButton2.Location = new Point(654, 322);
+            materialButton2.Location = new Point(642, 283);
             materialButton2.Margin = new Padding(4, 6, 4, 6);
             materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton2.Name = "materialButton2";
@@ -178,7 +220,7 @@
             materialLabel10.AutoSize = true;
             materialLabel10.Depth = 0;
             materialLabel10.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel10.Location = new Point(563, 183);
+            materialLabel10.Location = new Point(530, 169);
             materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel10.Name = "materialLabel10";
             materialLabel10.Size = new Size(274, 19);
@@ -205,7 +247,7 @@
             materialButton1.Depth = 0;
             materialButton1.HighEmphasis = true;
             materialButton1.Icon = null;
-            materialButton1.Location = new Point(29, 406);
+            materialButton1.Location = new Point(29, 445);
             materialButton1.Margin = new Padding(4, 6, 4, 6);
             materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton1.Name = "materialButton1";
@@ -226,19 +268,9 @@
             materialLabel8.Location = new Point(29, 19);
             materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel8.Name = "materialLabel8";
-            materialLabel8.Size = new Size(821, 19);
+            materialLabel8.Size = new Size(740, 19);
             materialLabel8.TabIndex = 1;
-            materialLabel8.Text = "Welcome to NuCleaner v1.0. This is a completely free cleaner that will help you maintain the performance of your rig.";
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.Location = new Point(506, 205);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(380, 269);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
-            richTextBox1.TextChanged += richTextBox1_TextChanged_1;
+            materialLabel8.Text = "Welcome to NuCleaner v1.0. This is a free cleaner that will help you maintain the performance of your rig.";
             // 
             // clean
             // 
@@ -319,7 +351,7 @@
             // 
             // materialProgressBar1
             // 
-            materialProgressBar1.BackColor = Color.Orange;
+            materialProgressBar1.BackColor = Color.WhiteSmoke;
             materialProgressBar1.Depth = 0;
             materialProgressBar1.Location = new Point(35, 134);
             materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1001,6 +1033,9 @@
             // 
             // settings
             // 
+            settings.Controls.Add(textBox1);
+            settings.Controls.Add(materialButton5);
+            settings.Controls.Add(materialButton4);
             settings.Controls.Add(comboBoxLanguage);
             settings.Controls.Add(materialCheckbox2);
             settings.Controls.Add(materialCheckbox1);
@@ -1011,6 +1046,54 @@
             settings.TabIndex = 4;
             settings.Text = "Settings";
             settings.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(753, 464);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 5;
+            textBox1.Text = "Version v1.0";
+            // 
+            // materialButton5
+            // 
+            materialButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton5.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton5.Depth = 0;
+            materialButton5.HighEmphasis = true;
+            materialButton5.Icon = null;
+            materialButton5.Location = new Point(173, 200);
+            materialButton5.Margin = new Padding(4, 6, 4, 6);
+            materialButton5.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton5.Name = "materialButton5";
+            materialButton5.NoAccentTextColor = Color.Empty;
+            materialButton5.Size = new Size(218, 36);
+            materialButton5.TabIndex = 4;
+            materialButton5.Text = "Download Latest Update";
+            materialButton5.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton5.UseAccentColor = false;
+            materialButton5.UseVisualStyleBackColor = true;
+            materialButton5.Click += materialButton5_Click;
+            // 
+            // materialButton4
+            // 
+            materialButton4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton4.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton4.Depth = 0;
+            materialButton4.HighEmphasis = true;
+            materialButton4.Icon = null;
+            materialButton4.Location = new Point(173, 152);
+            materialButton4.Margin = new Padding(4, 6, 4, 6);
+            materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton4.Name = "materialButton4";
+            materialButton4.NoAccentTextColor = Color.Empty;
+            materialButton4.Size = new Size(172, 36);
+            materialButton4.TabIndex = 3;
+            materialButton4.Text = "Check for updates!";
+            materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton4.UseAccentColor = false;
+            materialButton4.UseVisualStyleBackColor = true;
+            materialButton4.Click += materialButton4_Click;
             // 
             // comboBoxLanguage
             // 
@@ -1135,73 +1218,77 @@
 
         #endregion
         public static RichTextBox rtbOutput;
-        public static MaterialSkin.Controls.MaterialComboBox comboBoxLanguage;
-        public static MaterialSkin.Controls.MaterialTabControl materialTabControl1;
-        public static TabPage clean;
-        public static ImageList imageList1;
-        public static TabPage misc;
-        public static TabPage contact;
-        public static TabPage settings;
-        public static MaterialSkin.Controls.MaterialCard materialCard2;
-        public static Label label1;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton3;
-        public static MaterialSkin.Controls.MaterialCard materialCard3;
-        public static Label label2;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton2;
-        public static MaterialSkin.Controls.MaterialCheckbox materialCheckbox1;
-        public static MaterialSkin.Controls.MaterialCheckbox materialCheckbox2;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton5;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton ChangeUAC_Button4;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton1;
-        public static MaterialSkin.Controls.MaterialCard materialCard5;
-        public static MaterialSkin.Controls.MaterialCard materialCard4;
-        public static MaterialSkin.Controls.MaterialCard materialCard1;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel2;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel1;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton8;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton7;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton6;
-        public static MaterialSkin.Controls.MaterialCard materialCard8;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel6;
-        public static MaterialSkin.Controls.MaterialCard materialCard7;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel5;
-        public static MaterialSkin.Controls.MaterialCard materialCard6;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel4;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel3;
-        public static System.Windows.Forms.Timer timer1;
-        public static TabPage home;
-        public static RichTextBox richTextBox1;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar7;
-        public static MaterialSkin.Controls.MaterialCard materialCard10;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton9;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar8;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar6;
-        public static MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton4;
-        public static MaterialSkin.Controls.MaterialCard materialCard9;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel7;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel8;
-        public static MaterialSkin.Controls.MaterialButton materialButton1;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel9;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel10;
-        public static MaterialSkin.Controls.MaterialButton materialButton2;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel14;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel13;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel12;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel11;
-        public static MaterialSkin.Controls.MaterialButton materialButton3;
-        public static MaterialSkin.Controls.MaterialTextBox2 materialTextBox23;
-        public static MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
-        public static MaterialSkin.Controls.MaterialTextBox2 materialTextBox21;
-        public static MaterialSkin.Controls.MaterialMultiLineTextBox2 materialMultiLineTextBox21;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel15;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar5;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar4;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar3;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBar2;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther1;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther3;
-        public static MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther2;
-        public static MaterialSkin.Controls.MaterialLabel materialLabel16;
+        private TextBox textBox1;
+        public MaterialSkin.Controls.MaterialButton materialButton5;
+        public MaterialSkin.Controls.MaterialButton materialButton4;
+        public MaterialSkin.Controls.MaterialComboBox comboBoxLanguage;
+        public MaterialSkin.Controls.MaterialTabControl materialTabControl1;
+        public TabPage clean;
+        public ImageList imageList1;
+        public TabPage misc;
+        public TabPage contact;
+        public TabPage settings;
+        public MaterialSkin.Controls.MaterialCard materialCard2;
+        public Label label1;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton3;
+        public MaterialSkin.Controls.MaterialCard materialCard3;
+        public Label label2;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton2;
+        public MaterialSkin.Controls.MaterialCheckbox materialCheckbox1;
+        public MaterialSkin.Controls.MaterialCheckbox materialCheckbox2;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton5;
+        public MaterialSkin.Controls.MaterialFloatingActionButton ChangeUAC_Button4;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton1;
+        public MaterialSkin.Controls.MaterialCard materialCard5;
+        public MaterialSkin.Controls.MaterialCard materialCard4;
+        public MaterialSkin.Controls.MaterialCard materialCard1;
+        public MaterialSkin.Controls.MaterialLabel materialLabel2;
+        public MaterialSkin.Controls.MaterialLabel materialLabel1;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton8;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton7;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton6;
+        public MaterialSkin.Controls.MaterialCard materialCard8;
+        public MaterialSkin.Controls.MaterialLabel materialLabel6;
+        public MaterialSkin.Controls.MaterialCard materialCard7;
+        public MaterialSkin.Controls.MaterialLabel materialLabel5;
+        public MaterialSkin.Controls.MaterialCard materialCard6;
+        public MaterialSkin.Controls.MaterialLabel materialLabel4;
+        public MaterialSkin.Controls.MaterialLabel materialLabel3;
+        public System.Windows.Forms.Timer timer1;
+        public TabPage home;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar7;
+        public MaterialSkin.Controls.MaterialCard materialCard10;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton9;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar8;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar6;
+        public MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton4;
+        public MaterialSkin.Controls.MaterialCard materialCard9;
+        public MaterialSkin.Controls.MaterialLabel materialLabel7;
+        public MaterialSkin.Controls.MaterialLabel materialLabel8;
+        public MaterialSkin.Controls.MaterialButton materialButton1;
+        public MaterialSkin.Controls.MaterialLabel materialLabel9;
+        public MaterialSkin.Controls.MaterialLabel materialLabel10;
+        public MaterialSkin.Controls.MaterialButton materialButton2;
+        public MaterialSkin.Controls.MaterialLabel materialLabel14;
+        public MaterialSkin.Controls.MaterialLabel materialLabel13;
+        public MaterialSkin.Controls.MaterialLabel materialLabel12;
+        public MaterialSkin.Controls.MaterialLabel materialLabel11;
+        public MaterialSkin.Controls.MaterialButton materialButton3;
+        public MaterialSkin.Controls.MaterialTextBox2 materialTextBox23;
+        public MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
+        public MaterialSkin.Controls.MaterialTextBox2 materialTextBox21;
+        public MaterialSkin.Controls.MaterialMultiLineTextBox2 materialMultiLineTextBox21;
+        public MaterialSkin.Controls.MaterialLabel materialLabel15;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar5;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar4;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar3;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBar2;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther1;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther3;
+        public MaterialSkin.Controls.MaterialProgressBar materialProgressBarOther2;
+        public MaterialSkin.Controls.MaterialLabel materialLabel16;
+        private MaterialSkin.Controls.MaterialLabel materialLabel17;
+        private MaterialSkin.Controls.MaterialMultiLineTextBox2 materialMultiLineTextBox22;
     }
 }

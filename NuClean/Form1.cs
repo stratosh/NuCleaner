@@ -15,37 +15,32 @@ using System.Net.Mail;
 using System.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace NuClean
 {
     public partial class Form1 : MaterialForm
     {
         public string Language { get; set; }
-        private LibreHardwareMonitor.Hardware.Computer computer;
-        private System.Windows.Forms.CheckBox chkStartup;
+        private readonly LibreHardwareMonitor.Hardware.Computer computer;
+        //private readonly System.Windows.Forms.CheckBox chkStartup;
 
 
         public Form1()
         {
             InitializeComponent();
-            //timer1.Start();
+            timer1.Start();
             materialCheckbox1.Checked = Properties.Settings.Default.RunOnStartup;
-
-            computer = new LibreHardwareMonitor.Hardware.Computer();
-            computer.IsCpuEnabled = true;
+            computer = new LibreHardwareMonitor.Hardware.Computer
+            {
+                IsCpuEnabled = true
+            };
             computer.Open();
-
-
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Cyan100, Primary.BlueGrey600, Primary.BlueGrey600, Accent.DeepOrange200, TextShade.BLACK);
-
         }
-
-
-
-
         // Clean temporary files
         private async void MaterialFloatingActionButton2Click(object sender, EventArgs e)
         {
@@ -59,7 +54,6 @@ namespace NuClean
 
 
         }
-
         public static async Task AnimateProgressBarAsync(MaterialProgressBar progressBar)
         {
             int interval = 10; // Interval in milliseconds
@@ -73,8 +67,6 @@ namespace NuClean
                 await Task.Delay(stepDuration);
             }
         }
-
-
         public static Task<(float cpuTemperature, float gpuTemperature)> GetCPUTemperatureAsync()
         {
             return Task.Run(() =>
@@ -110,12 +102,9 @@ namespace NuClean
                         }
                     }
                 }
-
                 return (cpuTemperature, gpuTemperature);
             });
         }
-
-
         public static bool AskForPermission(string message)
         {
             var result = MessageBox.Show(message, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -141,90 +130,71 @@ namespace NuClean
 
             }
         }
-
         private void AppendToRichTextBox(string text)
         {
             // Append the text to the RichTextBox
             rtbOutput.AppendText(text + Environment.NewLine);
         }
-
         private void EnableDarkTheme()
         {
             Function.DarkThemeOn();
         }
-
         private void DisableDarkTheme()
         {
             Function.DarkThemeOff();
         }
-
-
-
         private void materialFloatingActionButton1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void materialMaskedTextBox1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void misc_Click(object sender, EventArgs e)
         {
 
         }
-
         private void materialProgressBarOther1_Click(object sender, EventArgs e)
         {
 
         }
-
         //UAC button
         private void materialFloatingActionButton4_Click(object sender, EventArgs e)
         {
-            Function.UAC();
+            Function.UAC(materialProgressBarOther2);
         }
-
         //Disk Cleanup Button
         private void materialFloatingActionButton7_Click(object sender, EventArgs e)
         {
-            Function.DiskCleanup();
+            Function.DiskCleanup(materialProgressBar4);
         }
-
         //GodMode Button
         private void materialFloatingActionButton5_Click(object sender, EventArgs e)
         {
-            Function.GodMode();
+            Function.GodMode(materialProgressBarOther3);
         }
-
         // Uninstaller Button
         private void materialFloatingActionButton6_Click(object sender, EventArgs e)
         {
-            Function.Uninstaller();
+            Function.Uninstaller(materialProgressBar3);
         }
-
         //Scheduled Tasks
         private void materialFloatingActionButton8_Click(object sender, EventArgs e)
         {
-            Function.ScheduledTasks();
+            Function.ScheduledTasks(materialProgressBar5);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Shown += Form1_Shown;
-
-
         }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Update the PictureBox with the next frame
         }
-
         private void Form1_Shown(object sender, EventArgs e)
         {
             // Programmatically trigger the click event of the button you want to press automatically
-            richTextBox1.Show();
 
             materialButton2.PerformClick();
             materialButton2.Visible = false;
@@ -235,7 +205,6 @@ namespace NuClean
             string systemInfo = await Function.LoadSystemInfo2(computer);
             rtbOutput.Text = systemInfo;
         }
-
         private void materialTextBox21_Click(object sender, EventArgs e)
         {
 
@@ -260,75 +229,68 @@ namespace NuClean
         //Network Settings
         private void materialFloatingActionButton1_Click_1(object sender, EventArgs e)
         {
-            Function.OpenCmdWithIpConfigAll();
+            Function.OpenCmdWithIpConfigAll(materialProgressBarOther1);
 
         }
         //Disable Superfetch
-        private void materialFloatingActionButton4_Click_1(object sender, EventArgs e)
+        private async void materialFloatingActionButton4_Click_1(object sender, EventArgs e)
         {
-            AnimateProgressBarAsync(materialProgressBar2);
-            Function.DisableSuperfetch();
+            
+            await AnimateProgressBarAsync(materialProgressBar2);
+            Function.DisableSuperfetch(materialProgressBar2);
+        
+        }
+        public static void BoostRamForGaming_Click()
+        {
+            try
+            {
+                // Close unnecessary processes to free up RAM
+                Function.CloseUnnecessaryProcesses();
+
+                // Clear system cache and release memory
+                Function.ClearSystemCache();
+
+                // Run garbage collection to release unused memory
+                Function.RunGarbageCollection();
+
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void materialLabel7_Click(object sender, EventArgs e)
         {
 
         }
-
         private void materialMultiLineTextBox21_Click(object sender, EventArgs e)
         {
 
         }
-
         private void materialButton1_Click(object sender, EventArgs e)
         {
-            // Replace "https://www.example.com" with your desired link
-            string url = "https://www.paypal.com/donate/?hosted_button_id=SP6LQVVRJ6VC8";
-
-            try
-            {
-                // Create a ProcessStartInfo object
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = url,
-                    UseShellExecute = true // Set UseShellExecute to true to use the default shell
-                };
-
-                // Open the link using the default web browser
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions
-                MessageBox.Show("Error opening link: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Function.DonateFunc();
         }
-
-        private async void materialButton2_Click(object sender, EventArgs e)
+        private void materialButton2_Click(object sender, EventArgs e)
         {
-            string systemInfo = await Function.LoadSystemInfo2(computer);
-            richTextBox1.Text = systemInfo;
+           
         }
-
         private async void materialButton2_Click_1(object sender, EventArgs e)
         {
             string systemInfo = await Function.LoadSystemInfo2(computer);
-            richTextBox1.Text = systemInfo;
+            materialMultiLineTextBox22.Text = systemInfo;
         }
-
         private void materialTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void materialMultiLineTextBox21_Click_1(object sender, EventArgs e)
         {
 
         }
-
-        private async void materialButton3_Click(object sender, EventArgs e)
+        private async void email_func(MaterialProgressBar progressBar)
         {
-            await Form1.AnimateProgressBarAsync(Form1.materialProgressBar6);
+            await Form1.AnimateProgressBarAsync(progressBar);
             {
                 // Handle the form submission here (send email, store data, etc.)
                 // Example: Sending an email using SmtpClient
@@ -338,17 +300,21 @@ namespace NuClean
                 string message = materialMultiLineTextBox21.Text;
 
                 // Create a MailMessage object with sender and recipient details
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("efstratiospara@gmail.com", "NuClean");
+                MailMessage mail = new MailMessage
+                {
+                    From = new("efstratiospara@gmail.com", "NuClean")
+                };
                 mail.To.Add("efstratiospara@gmail.com");
                 mail.Subject = subject;
                 mail.Body = $"FROM NUCLEAN APP!!! Name: {name}\nEmail: {email}\n\n{message}";
 
                 // Create a SmtpClient object with your SMTP server details
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("efstratiospara", "xivuldmombqnnrij");
-                smtpClient.EnableSsl = true;
+                SmtpClient smtpClient = new("smtp.gmail.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("efstratiospara", "xivuldmombqnnrij"),
+                    EnableSsl = true
+                };
 
                 try
                 {
@@ -364,28 +330,28 @@ namespace NuClean
                     MessageBox.Show($"An error occurred while sending the email: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
+        private void materialButton3_Click(object sender, EventArgs e)
+        {
+
+             email_func(materialProgressBar6);
+        }
         private void materialTextBox21_Click_1(object sender, EventArgs e)
         {
 
         }
-
         private void materialTextBox22_Click(object sender, EventArgs e)
         {
 
         }
-
         private void progressBar1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void materialProgressBar1_Click(object sender, EventArgs e)
         {
         }
-
         private void materialProgressBar2_Click(object sender, EventArgs e)
         {
 
@@ -393,12 +359,12 @@ namespace NuClean
         //Boost Ram
         private void materialFloatingActionButton9_Click(object sender, EventArgs e)
         {
-            Function.BoostRam();
+            Function.BoostRam(materialProgressBar8);
         }
 
         private void materialCheckbox1_CheckedChanged(object sender, EventArgs e)
         {
-            Function.Startup();
+            Function.Startup(materialCheckbox1);
         }
         private void SetApplicationLanguage()
         {
@@ -413,29 +379,48 @@ namespace NuClean
             InitializeComponent();
 
         }
-
         private string GetCultureIdentifier(string language)
         {
-            switch (language)
+            return language switch
             {
-                case "English (United States)":
-                    return "en-US";
-                case "Spanish (Spain)":
-                    return "es-ES";
-                case "French (France)":
-                    return "fr-FR";
-                case "Greek (Greece)":
-                    return "gr-GR";
+                "English (United States)" => "en-US",
+                "Spanish (Spain)" => "es-ES",
+                "French (France)" => "fr-FR",
+                "Greek (Greece)" => "gr-GR",
                 // Add more cases for other languages as needed.
-                default:
-                    return string.Empty;
-            }
+                _ => string.Empty,
+            };
         }
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedLanguage = comboBoxLanguage.SelectedItem.ToString();
             Properties.Settings.Default.Language = GetCultureIdentifier(selectedLanguage);
             Properties.Settings.Default.Save();
+        }
+        private void materialButton4_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                Function.CheckUpdates();
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while fetching the latest version.
+                MessageBox.Show("Error downloading the latest version: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void materialButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Function.DownloadAndInstallUpdate();
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while fetching the latest version.
+                MessageBox.Show("Error fetching the latest version: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
